@@ -36,7 +36,7 @@ look_for = [
 
 ]
 
-error_offset = 100
+error_offset = 20
 last_x_y = (0,0)
 pause = False
 
@@ -68,21 +68,23 @@ def on_move(x,y):
 
    if pause: 
        return
+   
+   error_offset_safe = error_offset + 5
 
-   if x <= window_info["X"]:
-        mouse_object.position = (window_info["WIDTH"] - error_offset,y)
+   if x <= window_info["X"] + error_offset:
+        mouse_object.position = (window_info["WIDTH"] - error_offset_safe,y)
         return
 
-   if x >= window_info["WIDTH"]:
-        mouse_object.position = (window_info["X"] + error_offset,y)
+   if x >= window_info["WIDTH"] - error_offset :
+        mouse_object.position = (window_info["X"] + error_offset_safe,y)
         return
 
-   if y >= window_info["HEIGHT"]:
-        mouse_object.position = (x,window_info["HEIGHT"] - error_offset)
+   if y >= window_info["HEIGHT"] - error_offset:
+        mouse_object.position = (x,window_info["HEIGHT"] - error_offset_safe)
         return
 
-   if y <= window_info["Y"]:
-        mouse_object.position = (x,window_info["Y"] + error_offset)
+   if y <= window_info["Y"] + error_offset:
+        mouse_object.position = (x,window_info["Y"] + error_offset_safe)
         return
 
 def on_click(x,y,button,pressed):
