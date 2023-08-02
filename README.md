@@ -17,3 +17,14 @@ If you have git installed, you can run:
 `git clone https://github.com/no-venv/LockRblxCursor_Linux` 
 
 to clone this git repository or download this as a zip.
+
+# Configuration 
+You can change your keybind to pause the cursor locking.
+Edit the file, `keybind.cfg` to change the keybind. 
+
+Please make sure that the configuration file is in the same place as the python script, or the default keybind:
+`<ctrl>+<shift>+o` will be used.
+
+For special keys (ctrl, shift and tab, for example) inclose them in <> brackets:
+
+`<ctrl> or <shift> or <tab>`
