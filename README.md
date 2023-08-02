@@ -28,3 +28,7 @@ Please make sure that the configuration file is in the same place as the python 
 For special keys (ctrl, shift and tab, for example) inclose them in <> brackets:
 
 `<ctrl> or <shift> or <tab>`
+
+and to add multiple keys together, add the plus sign in between:
+
+``<ctrl>+a+b``
