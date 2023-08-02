@@ -17,5 +17,3 @@ If you have git installed, you can run:
 `git clone https://github.com/no-venv/LockRblxCursor_Linux` 
 
 to clone this git repository or download this as a zip.
-
-# Demo
