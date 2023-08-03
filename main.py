@@ -7,19 +7,7 @@ from os.path import dirname
 from os.path import isfile
 
 from re import findall as regex_findall
-from time import sleep as sleep
-
-script_path = dirname(__file__)
-config_path = script_path + "/keybind.cfg"
-
-config_file = isfile(config_path)
-
-if not config_file:
-
-    print("config file, keybind.cfg not found!")
-    print("using default keybind: <ctrl>+<shift>+o")
-
-keybind_key = config_file and open(config_path).read() or "<ctrl>+<shift>+o"
+from time import sleep as sleep 
 
 window_info = {
 
@@ -30,16 +18,50 @@ window_info = {
 
 }
 
-look_for = [
+look_for = ["X","Y","WIDTH","HEIGHT"]
 
-    "X","Y","WIDTH","HEIGHT"
+settings = {
+    "keybind" : "<ctrl>+<shift>+o",
+    "edge-offset" : 20
+}
 
-]
+script_path = dirname(__file__)
+config_path = script_path + "/settings.cfg"
 
-error_offset = 20
+config_file = isfile(config_path)
+
+if not config_file:
+
+    print("config file, settings.cfg not found!")
+    print("using default settings:")
+
+    for key in settings.keys():
+        print(key,settings[key])
+
+else:
+
+    with open(config_path) as config_file_object:
+
+        for line in config_file_object.readlines():
+            
+            prarms = line.split("=")
+
+            prarms[0] = prarms[0].strip()
+            prarms[1] = prarms[1].strip()
+
+  
+            if not prarms[0] in settings:
+                continue
+
+            try:
+                settings[prarms[0]] = int(prarms[1])
+            except:
+                settings[prarms[0]] = prarms[1]
+
+
+
 last_x_y = (0,0)
 pause = False
-
 mouse_object = Controller()
 
 print("Be prepared to focus and click your cursor at the Roblox window, press any key when you're ready")
@@ -59,6 +81,7 @@ for lines in output.readlines():
 
 
 def on_move(x,y):
+   
    """
    
         Function to fix mouse going out of window
@@ -69,13 +92,16 @@ def on_move(x,y):
    if pause: 
        return
    
-   error_offset_safe = error_offset + 5
+   error_offset = settings["edge-offset"]
+
+   error_offset_safe = error_offset + 10
 
    if x <= window_info["X"] + error_offset:
-        mouse_object.position = (window_info["WIDTH"] - error_offset_safe,y)
+        mouse_object.position = ( window_info["X"] + window_info["WIDTH"] - error_offset_safe,y)
         return
+   
 
-   if x >= window_info["WIDTH"] - error_offset :
+   if x >= (window_info["X"] + window_info["WIDTH"]) - error_offset :
         mouse_object.position = (window_info["X"] + error_offset_safe,y)
         return
 
@@ -88,9 +114,9 @@ def on_move(x,y):
         return
 
 def on_click(x,y,button,pressed):
+
    
-   """
-   
+   """ 
         Roblox right click simulation 
 
    """
@@ -126,10 +152,10 @@ def on_keybind():
     print(pause and "Paused" or "Resumed")
 
 print("Exit by pressing CTRL+C")
-print("Keybind to pause is: ",keybind_key)
+print("Keybind to pause is: ",settings["keybind"])
 
 hotkey_event_listener = keyboard.GlobalHotKeys({
-    keybind_key : on_keybind
+    settings["keybind"] : on_keybind
 })
 
 hotkey_event_listener.start()
