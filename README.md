@@ -19,11 +19,17 @@ If you have git installed, you can run:
 to clone this git repository or download this as a zip.
 
 # Configuration 
-You can change your keybind to pause the cursor locking.
-Edit the file, `keybind.cfg` to change the keybind. 
 
-Please make sure that the configuration file is in the same place as the python script, or the default keybind:
-`<ctrl>+<shift>+o` will be used.
+You can configure the script by editing the file, `settings.cfg`
+
+```
+keybind=<ctrl>+<shift>+o
+edge-offset=20
+```
+
+### keybind
+
+You can change your keybind to pause the cursor locking.
 
 For special keys (ctrl, shift and tab, for example) inclose them in <> brackets:
 
@@ -32,3 +38,12 @@ For special keys (ctrl, shift and tab, for example) inclose them in <> brackets:
 and to add multiple keys together, add the plus sign in between:
 
 ``<ctrl>+a+b``
+
+### edge-offset
+
+You can change `edge-offset` to keep further keep the cursor enclosed.
+
+( if for some reason the cursor doesn't wrap around the edges )
+
+Higher `edge-offset` will keep the cursor more enclosed, but camera movements may become less smoother 
+
