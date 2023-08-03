@@ -105,8 +105,8 @@ def on_move(x,y):
         mouse_object.position = (window_info["X"] + error_offset_safe,y)
         return
 
-   if y >= window_info["HEIGHT"] - error_offset:
-        mouse_object.position = (x,window_info["HEIGHT"] - error_offset_safe)
+   if y >= (window_info["Y"] + window_info["HEIGHT"]) - error_offset:
+        mouse_object.position = (x, window_info["Y"]+ window_info["HEIGHT"] - error_offset_safe)
         return
 
    if y <= window_info["Y"] + error_offset:
